@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Suppress benign [vite] websocket connection messages in container environment
+      (function() {
+        var origError = console.error;
+        var origWarn = console.warn;
+        var isViteWs = function(arg) {
+          if (!arg) return false;
+          var str = typeof arg === 'string' ? arg : (arg.message || String(arg));
+          return str.indexOf('[vite]') !== -1 || str.indexOf('failed to connect to websocket') !== -1;
+        };
+        console.error = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWs(arguments[i])) return;
+          }
+          origError.apply(console, arguments);
+        };
+        console.warn = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isViteWs(arguments[i])) return;
+          }
+          origWarn.apply(console, arguments);
+        };
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <meta name="description" content="A minimal, offline-capable local task manager with subtasks, GitHub links, deadline tracking, audit logs, and data export." />
+    <meta property="og:title" content="Task Manager" />
+    <meta property="og:description" content="A minimal, offline-capable local task manager with subtasks, GitHub links, deadline tracking, audit logs, and data export." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

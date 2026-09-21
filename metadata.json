@@ -1,0 +1,6 @@
+{
+  "name": "Task Manager",
+  "description": "A minimal, offline-capable local task manager with subtasks, GitHub links, deadline tracking, audit logs, and data export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
